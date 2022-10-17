@@ -54,3 +54,49 @@ variable "alarm_actions" {
   type = list(string)
 }
 
+variable "log_enable" {
+  default = "both"
+}
+
+variable "log_group_prefix" {
+  default = ""
+}
+
+variable "log_destination_format" {
+  default = "json"
+}
+
+variable "log_group_name_slow" {
+  default = ""
+}
+
+variable "log_group_name_engine" {
+  default = ""
+}
+
+variable "log_destination_type_slow {
+  default = "cloudwatch"
+}
+
+variable "log_destination_type_engine" {
+  default = "cloudwatch"
+}
+
+variable "log_destination_format_slow" {
+  default = ""
+}
+
+variable "log_destination_format_engine" {
+  default = ""
+}
+
+
+locals {
+  enable_slow_log = var.log_enable != "both" ? var.log_enable != "slow" ? [] : ["slow"] : ["both"]
+  enable_engine_log = var.log_enable != "both" ? var.log_enable != "engine" ? [] : ["engine"] : ["both"]
+  log_group_prefix = var.log_group_prefix !="" ? var.log_group_prefix : "/redis/${var.name}"
+  log_destination_format_slow = var.log_destination_format_slow !="" ? var.log_destination_format_slow : "${var.log_destination_format}"
+  log_destination_format_engine = var.log_destination_format_engine !="" ? var.log_destination_format_engine : "${var.log_destination_format}"
+  log_group_name_slow = var.log_group_name_slow !="" ? var.log_group_name_slow : "${local.log_group_prefix}/slow/${var.log_destination_format}"
+  log_group_name_engine = var.log_group_name_engine !="" ? var.log_group_name_engine : "${local.log_group_prefix}/engine/${var.log_destination_format}"
+}
