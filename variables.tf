@@ -94,7 +94,7 @@ variable "log_destination_format_engine" {
 locals {
   enable_slow_log = var.log_enable != "both" ? var.log_enable != "slow" ? [] : ["slow"] : ["both"]
   enable_engine_log = var.log_enable != "both" ? var.log_enable != "engine" ? [] : ["engine"] : ["both"]
-  log_group_prefix = var.log_group_prefix !="" ? var.log_group_prefix : "/redis/${var.name}"
+  log_group_prefix = var.log_group_prefix !="" ? var.log_group_prefix : "/redis/${aws_elasticache_replication_group.redis.replication_group_id}"
   log_destination_format_slow = var.log_destination_format_slow !="" ? var.log_destination_format_slow : "${var.log_destination_format}"
   log_destination_format_engine = var.log_destination_format_engine !="" ? var.log_destination_format_engine : "${var.log_destination_format}"
   log_group_name_slow = var.log_group_name_slow !="" ? var.log_group_name_slow : "${local.log_group_prefix}/slow/${var.log_destination_format}"
