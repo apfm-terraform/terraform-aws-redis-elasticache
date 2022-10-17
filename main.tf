@@ -27,7 +27,24 @@ resource "aws_elasticache_replication_group" "redis" {
   maintenance_window            = var.maintenance_window
   notification_topic_arn        = var.notification_topic_arn
   port                          = "6379"
-
+  dynamic log_delivery_configuration {
+    for_each = local.enable_slow_log
+    content {
+      destination      = local.log_group_name_slow
+      destination_type = "${local.log_destination_type_slow}-logs"
+      log_format       = local.log_destination_format_slow
+      log_type         = "slow-log"
+    }
+  }
+  dynamic log_delivery_configuration {
+    for_each = local.enable_engine_log
+    content {
+      destination      = local.log_group_name_engine
+      destination_type = "${local.log_destination_type_engine}-logs"
+      log_format       = local.log_destination_format_engine
+      log_type         = "engine-log"
+    }
+  }
   tags = {
     Name        = "CacheReplicationGroup"
     Project     = var.project
