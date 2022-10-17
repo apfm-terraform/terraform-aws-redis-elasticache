@@ -74,7 +74,7 @@ variable "log_group_name_engine" {
   default = ""
 }
 
-variable "log_destination_type_slow {
+variable "log_destination_type_slow" {
   default = "cloudwatch"
 }
 
