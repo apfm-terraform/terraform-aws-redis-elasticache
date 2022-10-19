@@ -30,7 +30,7 @@ resource "aws_elasticache_replication_group" "redis" {
   port                          = "6379"
 
   dynamic log_delivery_configuration {
-    for_each = regexall(".*6\.[x0-9]$", var.engine_version) == 0 ? [] : local.enable_slow_log
+    for_each = regexall(".*6\\.[x0-9]$", var.engine_version) == 0 ? [] : local.enable_slow_log
     content {
       destination      = local.log_group_name_slow
       destination_type = "${local.log_destination_type_slow}-logs"
@@ -40,7 +40,7 @@ resource "aws_elasticache_replication_group" "redis" {
   }
 
   dynamic log_delivery_configuration {
-    for_each = regexall(".*6\.[2-9]$", var.engine_version) == 0 ? [] : local.enable_engine_log
+    for_each = regexall(".*6\\.[2-9]$", var.engine_version) == 0 ? [] : local.enable_engine_log
     content {
       destination      = local.log_group_name_engine
       destination_type = "${local.log_destination_type_engine}-logs"
