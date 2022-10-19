@@ -75,11 +75,11 @@ variable "log_group_name_engine" {
 }
 
 variable "log_destination_type_slow" {
-  default = "cloudwatch"
+  default = ""
 }
 
 variable "log_destination_type_engine" {
-  default = "cloudwatch"
+  default = ""
 }
 
 variable "log_destination_format_slow" {
@@ -99,4 +99,6 @@ locals {
   log_destination_format_engine = var.log_destination_format_engine !="" ? var.log_destination_format_engine : "${var.log_destination_format}"
   log_group_name_slow = var.log_group_name_slow !="" ? var.log_group_name_slow : "${local.log_group_prefix}/slow/${var.log_destination_format}"
   log_group_name_engine = var.log_group_name_engine !="" ? var.log_group_name_engine : "${local.log_group_prefix}/engine/${var.log_destination_format}"
+  log_destination_type_slow = var.log_destination_type_slow !="" ? var.log_destination_type_slow : "cloudwatch"
+  log_destination_type_engine = var.log_destination_type_engine !="" ? var.log_destination_type_engine : "cloudwatch"
 }
