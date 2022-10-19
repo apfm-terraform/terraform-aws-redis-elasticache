@@ -26,6 +26,7 @@ resource "aws_elasticache_replication_group" "redis" {
   security_group_ids            = [aws_security_group.redis.id]
   maintenance_window            = var.maintenance_window
   notification_topic_arn        = var.notification_topic_arn
+  apply_immediately             = var.apply_immediately
   port                          = "6379"
   dynamic log_delivery_configuration {
     for_each = local.enable_slow_log
