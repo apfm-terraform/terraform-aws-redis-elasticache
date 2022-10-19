@@ -2,6 +2,10 @@ variable "project" {
   default = "Unknown"
 }
 
+variable "apply_immediately" {
+  default = false
+}
+
 variable "environment" {
   default = "Unknown"
 }
