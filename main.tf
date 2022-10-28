@@ -28,6 +28,10 @@ resource "aws_elasticache_replication_group" "redis" {
   notification_topic_arn        = var.notification_topic_arn
   apply_immediately             = var.apply_immediately
   port                          = "6379"
+  at_rest_encryption_enabled    = var.rest_encrypt
+  kms_key_id                    = var.rest_kms_key_id
+  transit_encryption_enabled    = var.trans_encrypt
+  auth_token                    = var.trans_encrypt ? random_password.auth_token[0].result : ""
 
   dynamic log_delivery_configuration {
     for_each = regexall(".*6\\.[x0-9]$", var.engine_version) == 0 ? [] : local.enable_slow_log
@@ -99,4 +103,10 @@ resource "aws_cloudwatch_metric_alarm" "cache_memory" {
   }
 
   alarm_actions = var.alarm_actions
+}
+
+resource "random_password" {
+  count     = var.trans_encrypt ? 1 : 0
+  length    = 32
+  special   = true
 }

@@ -94,6 +94,20 @@ variable "log_destination_format_engine" {
   default = ""
 }
 
+variable "rest_encrypt" {
+  default = false
+}
+
+variable "rest_kms_key_id" {
+  default = null
+  type    = string
+}
+
+variable "trans_encrypt" {
+  default = false
+}
+
+
 
 locals {
   enable_slow_log = var.log_enable != "both" ? var.log_enable != "slow" ? [] : ["slow"] : ["both"]
