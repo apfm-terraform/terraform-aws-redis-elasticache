@@ -105,7 +105,7 @@ resource "aws_cloudwatch_metric_alarm" "cache_memory" {
   alarm_actions = var.alarm_actions
 }
 
-resource "random_password" {
+resource "random_password" "auth_token" {
   count     = var.trans_encrypt ? 1 : 0
   length    = 32
   special   = true
