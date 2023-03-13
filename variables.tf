@@ -99,8 +99,8 @@ locals {
   enable_slow_log = var.log_enable != "both" ? var.log_enable != "slow" ? [] : ["slow"] : ["both"]
   enable_engine_log = var.log_enable != "both" ? var.log_enable != "engine" ? [] : ["engine"] : ["both"]
   log_group_prefix = var.log_group_prefix !="" ? var.log_group_prefix : "/redis/${lower(var.cache_identifier)}"
-  log_destination_format_slow = var.log_destination_format_slow !="" ? var.log_destination_format_slow : "${var.log_destination_format}"
-  log_destination_format_engine = var.log_destination_format_engine !="" ? var.log_destination_format_engine : "${var.log_destination_format}"
+  log_destination_format_slow = var.log_destination_format_slow !="" ? var.log_destination_format_slow : var.log_destination_format
+  log_destination_format_engine = var.log_destination_format_engine !="" ? var.log_destination_format_engine : var.log_destination_format
   log_group_name_slow = var.log_group_name_slow !="" ? var.log_group_name_slow : "${local.log_group_prefix}/slow/${var.log_destination_format}"
   log_group_name_engine = var.log_group_name_engine !="" ? var.log_group_name_engine : "${local.log_group_prefix}/engine/${var.log_destination_format}"
   log_destination_type_slow = var.log_destination_type_slow !="" ? var.log_destination_type_slow : "cloudwatch"
